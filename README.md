@@ -1,2 +1,2 @@
 # backup-home-dir
-my home directory backup script
+This script backs up /home/dthursto to /run/media/dthursto/Backup where "Backup" is a USB key.

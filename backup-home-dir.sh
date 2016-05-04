@@ -12,6 +12,12 @@ if  [ -z $userinput ]; then
 
 elif [ "$userinput" == "1" ]; then
   echo "Performing backup to USB"
+	if [ ! -d "/run/media/dthursto/Backup" ]; then
+          echo "Backup directory not found.  Plug in your USB key."
+          exit 1
+        fi
+	cd
+	rsync -av --exclude 'Downloads' --exclude '.cache' --delete /home/dthursto /run/media/dthursto/Backup/
   exit 1
 
 elif [ "$userinput" == "2" ]; then
@@ -32,5 +38,3 @@ fi
 
 
 # Local drive backup
-#cd
-#rsync -av --exclude 'Downloads' --exclude '.cache' --delete /home/dthursto /run/media/dthursto/Backup/

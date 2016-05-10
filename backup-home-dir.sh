@@ -22,19 +22,19 @@ elif [ "$userinput" == "1" ]; then
 
 elif [ "$userinput" == "2" ]; then
   echo "Performing backup to S3"
-  ARRAY=(`aws s3 ls | awk '{print$3}'`)
-  count=0
-  start=${ARRAY[0]}
-    while [ "x${ARRAY[count]}" != "x" ]
-    do
-        echo $count ${ARRAY[count]}
-        count=$(( $count + 1 ))
-    done
+  
+#  ARRAY=(`aws s3 ls | awk '{print$3}'`)
+#  count=0
+#  start=${ARRAY[0]}
+#    while [ "x${ARRAY[count]}" != "x" ]
+#    do
+#        echo $count ${ARRAY[count]}
+#        count=$(( $count + 1 ))
+#    done
+  aws s3 sync ~/Documents s3://dst-linux-backup
   exit 1
 else
   echo "Invalid choice made... exiting!"
     exit 1
 fi
 
-
-# Local drive backup

@@ -15,8 +15,8 @@ usbname=KINGSTON
 bucketname=my-s3-backup
 directory="/run/media/`whoami`/"
 ```
-where username is the user running the backup
-usbname is the name of the mounted USB key
-bucketname is the name of the S3 bucket
-directory is the path to your USB key when mounted
+* username is the user running the backup
+* usbname is the name of the mounted USB key
+* bucketname is the name of the S3 bucket
+* directory is the path to your USB key when mounted
 

@@ -1,6 +1,11 @@
 #!/bin/bash
 clear
-#back up to local drive OR aws s3
+
+username=`whoami`
+usbname=
+bucketname=
+directory="/run/media/`whoami`/"
+
 echo "Please choose your backup method:"
 echo "1) for local USB"
 echo "2) for aws s3"
@@ -9,32 +14,26 @@ read userinput
 if  [ -z $userinput ]; then
   echo "No choice made... exiting!"
   exit 1
-
 elif [ "$userinput" == "1" ]; then
-  echo "Performing backup to USB"
-	if [ ! -d "/run/media/dthursto/Backup" ]; then
-          echo "Backup directory not found.  Plug in your USB key."
-          exit 1
+	if [ ! -d "$directory/$usbname" ]; then
+    	  echo "Plug in your USB key."
+	exit 1
         fi
+  	echo "Performing backup to USB"
 	cd
-	rsync -av --exclude 'Downloads' --exclude '.cache' --delete /home/dthursto /run/media/dthursto/Backup/
-  exit 1
-
+	rsync -av --exclude 'Downloads' --exclude '.cache' --delete /home/$username $directory/$usbname
+    exit 0
 elif [ "$userinput" == "2" ]; then
-  echo "Performing backup to S3"
-  
-#  ARRAY=(`aws s3 ls | awk '{print$3}'`)
-#  count=0
-#  start=${ARRAY[0]}
-#    while [ "x${ARRAY[count]}" != "x" ]
-#    do
-#        echo $count ${ARRAY[count]}
-#        count=$(( $count + 1 ))
-#    done
-  aws s3 sync ~/Documents s3://dst-linux-backup
+  if [[ $bucketname ]]; then
+    echo "Performing backup to S3"
+    aws s3 sync ~/Documents s3://$bucketname
+    echo "Backup complete"
+  else
+    echo "AWS bucket not defined in script!"
+  fi
   exit 1
 else
   echo "Invalid choice made... exiting!"
-    exit 1
+  exit 1
 fi
 

@@ -7,16 +7,15 @@ Set up your [AWS account](https://aws.amazon.com) and create an S3 Bucket
 ## Required utilities
 Set up [AWS CLI](http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-set-up.html)
 
-## Define the following variables in the script
-example:
+## Default variables
+These are set to the following.  Make changes as necessary for your env.
+
 ```bash
-username=backupuser
-usbname=KINGSTON
-bucketname=my-s3-backup
-directory="/run/media/`whoami`/"
+username=`whoami`
+bucketname=
+directory=`mount | grep 'run/media' | awk '{print$3}'`
 ```
-* username is the user running the backup
-* usbname is the name of the mounted USB key
+* username is the user directory being backed up
 * bucketname is the name of the S3 bucket
-* directory is the path to your USB key when mounted
+* directory is the directory of the mounted USB key
 

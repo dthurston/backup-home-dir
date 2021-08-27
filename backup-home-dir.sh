@@ -20,7 +20,7 @@ elif [ "$userinput" == "1" ]; then
         fi
   	echo "Performing backup to USB"
 	cd
-	rsync -av --exclude 'Downloads' --exclude '.cache' /home/$username $directory
+	rsync -av --exclude 'Downloads' --exclude '.cache' --exclude '.config' --exclude '.mozilla' --exclude '.ssh' --exclude '.var' --exclude '.zoom' --exclude 'backup-home-dir' /home/$username $directory
     exit 0
 elif [ "$userinput" == "2" ]; then
   if [[ $bucketname ]]; then
